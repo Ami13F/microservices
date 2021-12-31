@@ -1,7 +1,3 @@
-## Description
-
-Authentication microservice for post [TODO]()
-
 ## Installation
 
 ```bash

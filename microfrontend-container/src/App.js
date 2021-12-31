@@ -17,12 +17,12 @@ function App() {
     </header>
     <div className="app__main">
       <div className="app__main__column">
-        <div className="microfrontend__wrapper">
+        {/* <div className="microfrontend__wrapper">
           <MicroFrontends host={authHost} authToken="" />
         </div>
       </div>
       <div className="microfrontend__wrapper">
-          <MicroFrontends host={bookHost} authToken="" />
+          <MicroFrontends host={bookHost} authToken="" /> */}
         </div>
     </div>
   </div>
