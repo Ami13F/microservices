@@ -10,7 +10,7 @@ export class BooksService {
   }
 
   findAll(type: string, currentPage: number) {
-    console.log("Find all for type: ", type, 'books');
+    console.log("Find all for type: ", type);
     var url = `https://openlibrary.org/search.json?q=${type}`
     console.log(url)
     return fetch(url)

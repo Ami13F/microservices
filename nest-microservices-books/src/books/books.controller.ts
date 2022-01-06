@@ -14,7 +14,10 @@ export class BooksController {
 
   @Get('search/:type/:currentPage')
   findAll(@Param('type') type: string, @Param('currentPage') currentPage: string) {
-    return this.booksService.findAll(type, +currentPage); //localhost:3020/books/search/:type/:currentPage
+    console.log("tuuuuuu")
+     var res = this.booksService.findAll(type, +currentPage); //localhost:3020/books/search/:type/:currentPage
+     console.log(res)
+     return res;
   }
 
   @Get(':id')
