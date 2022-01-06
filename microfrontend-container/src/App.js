@@ -1,32 +1,29 @@
 import './App.css';
-import MicroFrontend from "./MicroFrontend";
 import React, { useState } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { BrowserRouter, Switch, Routes, Route } from "react-router-dom";
 
-const {
-  REACT_APP_AUTH_HOST: authHost,
-  REACT_APP_BOOKS_HOST: bookHost
-} = process.env;
+const Auth = React.lazy(() => import('auth/App'));
+const Books = React.lazy(() => import('books/App'));
 
 function App() {
   return (
     <div className="app">
-    <header className="app__header">
-      <h1 className="app__logo">Mi<strong>Songs</strong></h1>
-    </header>
-    <div className="app__main">
-      <div className="app__main__column">
-        {/* <div className="microfrontend__wrapper">
-          <MicroFrontends host={authHost} authToken="" />
-        </div>
-      </div>
-      <div className="microfrontend__wrapper">
-          <MicroFrontends host={bookHost} authToken="" /> */}
-        </div>
-    </div>
+      
+    <React.Suspense fallback="Loading content...">
+      <BrowserRouter>
+        <Routes>
+
+          <Route path="/auth" element={<Auth />} />
+
+          <Route path="/books" element={<Books />} />
+
+        </Routes>
+
+        </BrowserRouter>
+    </React.Suspense>
   </div>
   );
 }
 
 export default App;
+
