@@ -50,8 +50,8 @@ module.exports = {
       remotes: {
         // Test if by declaring things like this: “app2@http://localhost:3002/remoteEntry.js”,
         // means that you no longer have to declare it in index.html
-        auth: 'auth@http://localhost:3006/remoteEntry.js',
-        books: 'books@http://localhost:3007/remoteEntry.js',
+        auth: 'auth',
+        books: 'books',
       },
       shared: {
         ...deps,
