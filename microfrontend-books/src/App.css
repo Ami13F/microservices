@@ -90,7 +90,7 @@ code {
   height: 100vh;
   margin: 0;    
   color: #5a6674;
-  font-size: 13px;
+  font-size: calc(10px + 1vmin);
   font-family: 'Roboto', sans-serif;
   overflow: hidden;
 }
@@ -137,7 +137,7 @@ svg {
   position: absolute;
   top: 10px;
   left: 38px;
-  font-size: 14px;
+  font-size: calc(10px + 1vmin);
   background: none;
   color: #5a6674;
   width: 195px;
