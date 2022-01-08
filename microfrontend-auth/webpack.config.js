@@ -48,6 +48,9 @@ module.exports = {
       name: 'auth',
       library: { type: 'var', name: 'auth' },
       filename: 'remoteEntry.js',
+      remotes: {
+        books: 'books',
+      },
       exposes: {
         // expose each component
         './App': './src/App',

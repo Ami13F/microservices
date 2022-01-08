@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { useLocalStorage } from "./tokenLocalStorage";
+import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Switch, Routes, Route } from "react-router-dom";
 
 function App() {
   const [token, setToken] = useLocalStorage('token', '');
@@ -26,6 +28,7 @@ function App() {
         setIsValid("");
         setIsLogged(true);
         setToken(r.accessToken)
+        navigate("/books")
       })
       .catch(() => {
         console.log("login error");
@@ -183,6 +186,7 @@ function App() {
   };
   const [isLogged, setIsLogged] = useState(true);
   const [isValid, setIsValid] = useState("");
+  const navigate = useNavigate()
 
   return (
     <div className="App">
@@ -190,7 +194,7 @@ function App() {
         <div id="auth-form">
           {isLogged === true ? <LoginForm /> : <CreateAccountForm />}
         </div>
-      </header>
+      </header>   
     </div>
   );
 }

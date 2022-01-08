@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BookDetails } from "./bookDetails";
+import { BrowserRouter, Switch, Routes, Route } from "react-router-dom";
 
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState("");
-
+  const token = JSON.parse(localStorage.getItem("token"))
 
   function handleRowClick(url) {
     console.log(url)
@@ -28,6 +29,7 @@ function App() {
     fetch(url, {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       method: "GET",
     })
@@ -35,13 +37,6 @@ function App() {
       .then((r) => {
         console.log(r);
         setLoading("")
-        //   var tempTable = `<tr>
-        //   <th> Author </th>
-        //   <th> Publish Date </th>
-        //   <th> Title </th>
-        //   <th> Number Of Pages</th>
-        //   <th> Icon </th>
-        // </tr>`;
         var myData = []
         Object.values(r).forEach((element) => {
           console.log(element)
@@ -74,42 +69,33 @@ function App() {
   }
   class BooksTable extends React.Component {
     render() {
-      return (
-        <>
-          <div id="table">
-            <h2>Your books:</h2>
-            <table>
-            {
-                loading !== "" ?
-               
-             <></> :  (<thead>
-             <tr>
-               <th> Author </th>
-               <th> Publish Date </th>
-               <th> Title </th>
-               <th> Number Of Pages</th>
-               <th> Icon </th>
-             </tr>
-           </thead>) 
-              }
-              <tbody>{
-                loading !== "" ?
-                  <Loading />
-                  :
-                  data.map((element) => (
-                    <tr onClick={handleRowClick(element.url)}>
-                      <td>{element.authors[0].name}</td>
-                      <td>{element.publish_date}</td>
-                      <td>{element.title}</td>
-                      <td>{element.number_of_pages}</td>
-                      <td><img src={element.cover} alt="No cover" /></td>
-                    </tr>
-                  ))
-              }
-              </tbody>
-            </table>
-          </div>
-        </>
+      return loading !== "" ? (<Loading />) : (
+        <div id="table">
+          <h2>Your books:</h2>
+          <table>
+            <thead>
+              <tr>
+                <th> Author </th>
+                <th> Publish Date </th>
+                <th> Title </th>
+                <th> Number Of Pages</th>
+                <th> Icon </th>
+              </tr>
+            </thead>
+            <tbody>{
+              data.map((element) => (
+                <tr onClick={handleRowClick(element.url)}>
+                  <td>{element.authors[0].name}</td>
+                  <td>{element.publish_date}</td>
+                  <td>{element.title}</td>
+                  <td>{element.number_of_pages}</td>
+                  <td><img src={element.cover} alt="No cover" /></td>
+                </tr>
+              ))
+            }
+            </tbody>
+          </table>
+        </div>
       );
     }
   }
@@ -140,11 +126,18 @@ function App() {
   }
 
   const [search, setSearch] = useState("");
+  console.log("token", token)
+  if (token == null || token === "") return <h3>Login first!</h3>;
 
   return (
     <div className="App-header" id="main">
       <SearchView />
       {search === "" ? <h3 id="searchH3">Search something!</h3> : <BooksTable />}
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path="/seebooks" element={<BookDetails />} />
+        </Routes>
+      </BrowserRouter> */}          
     </div>
   );
 }

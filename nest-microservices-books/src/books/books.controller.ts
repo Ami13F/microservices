@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { AuthGuard } from '../guards/AuthGuard';
 
+@UseGuards(AuthGuard)
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
@@ -14,7 +16,6 @@ export class BooksController {
 
   @Get('search/:type/:currentPage')
   findAll(@Param('type') type: string, @Param('currentPage') currentPage: string) {
-    console.log("tuuuuuu")
      var res = this.booksService.findAll(type, +currentPage); //localhost:3020/books/search/:type/:currentPage
      console.log(res)
      return res;
