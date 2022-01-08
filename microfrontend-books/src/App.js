@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { BookDetails } from "./bookDetails";
+import { BookDetails } from "./BookDetails";
 import { BrowserRouter, Switch, Routes, Route } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import Loading from "./Loading";
 
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState("");
   const token = JSON.parse(localStorage.getItem("token"))
+  const navigate = useNavigate()
 
   function handleRowClick(url) {
     console.log(url)
-    
+    // TODO: check why always called
+    // navigate("/books/seebooks")
   }
+
   const onSubmit = (e) => {
     e.preventDefault();
     var searchText = e.target.elements.searchText.value;
@@ -54,17 +59,7 @@ function App() {
         setData(myData)
       });
   };
-  class Loading extends React.Component {
-    render() {
-      return (
-        <div id="loading"><div className="loader">
-          <div className="outer"></div>
-          <div className="middle"></div>
-          <div className="inner"></div>
-        </div></div>
-      );
-    }
-  }
+  
   class BooksTable extends React.Component {
     render() {
       return loading !== "" ? (<Loading />) : (
@@ -81,8 +76,8 @@ function App() {
               </tr>
             </thead>
             <tbody>{
-              data.map((element) => (
-                <tr onClick={handleRowClick(element.url)}>
+              data.map((element, index) => (
+                <tr key={index} onClick={() => handleRowClick(element.url)}>
                   <td>{element.authors[0].name}</td>
                   <td>{element.publish_date}</td>
                   <td>{element.title}</td>
@@ -131,11 +126,6 @@ function App() {
     <div className="App-header" id="main">
       <SearchView />
       {search === "" ? <h3 id="searchH3">Search something!</h3> : <BooksTable />}
-      {/* <BrowserRouter>
-        <Routes>
-          <Route path="/seebooks" element={<BookDetails />} />
-        </Routes>
-      </BrowserRouter> */}          
     </div>
   );
 }

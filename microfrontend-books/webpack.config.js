@@ -51,6 +51,7 @@ module.exports = {
       exposes: {
         // expose each component
         './App': './src/App',
+        './BookDetails': './src/BookDetails',
         './routes': './src/routes',
       },
       shared: {
