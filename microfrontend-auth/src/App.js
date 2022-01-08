@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { useLocalStorage } from "./tokenLocalStorage";
 import { useNavigate } from 'react-router-dom';
-import { BrowserRouter, HashRouter, Switch, Routes, Route } from "react-router-dom";
 
 function App() {
   const [token, setToken] = useLocalStorage('token', '');

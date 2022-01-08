@@ -10,9 +10,7 @@ function App() {
 
   function handleRowClick(url) {
     console.log(url)
-    //  history.push(url);
-    // const win = window.open(url, "_blank");
-    // win.focus();
+    
   }
   const onSubmit = (e) => {
     e.preventDefault();
