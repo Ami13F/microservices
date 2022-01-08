@@ -4,7 +4,7 @@ import { useLocalStorage } from "./tokenLocalStorage";
 import { useNavigate } from 'react-router-dom';
 
 function App() {
-  const [token, setToken] = useLocalStorage('token', '');
+  const [token, setToken] = useLocalStorage('token', null);
 
   const loginSubmit = (e) => {
     e.preventDefault();

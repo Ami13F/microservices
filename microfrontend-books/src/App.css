@@ -13,6 +13,8 @@
   display:flex;
   color: white;
   flex-direction: column;
+  align-items: center;
+  justify-content: unset;
 }
 
 .App-link {

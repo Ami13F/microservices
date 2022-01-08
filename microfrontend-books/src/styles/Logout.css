@@ -1,0 +1,10 @@
+.navigation {
+  background: crimson;
+  margin-right: 10px;
+  align-self: end;
+  padding: 5px;
+  border-radius: 10px;
+}
+.navigation:hover{
+    background: #e93055;
+}

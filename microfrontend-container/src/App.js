@@ -7,9 +7,9 @@ const Books = React.lazy(() => import('books/App'));
 const BookDetails = React.lazy(() => import('books/BookDetails'));
 
 function App() {
-  const token = localStorage.getItem("token")
+  const token = JSON.parse(localStorage.getItem("token"))
 
-  const isLogged = token !== "" || token != null
+  const isLogged = token != null
 
   return (
     <div className="app">
