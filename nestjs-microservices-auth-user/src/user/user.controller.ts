@@ -22,7 +22,7 @@ export class UserController {
   }
 
   // @UseGuards(AuthGuard)
-  @Get('greet')  
+  @Get('/greet')  
   async greet(): Promise<string> {
     return 'All good! Keep working :)'; 
   }

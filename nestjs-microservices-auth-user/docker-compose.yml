@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+    user:
+        container_name: user-service
+        image: nestjs-api-dev:1.0.0
+        build:
+            context: .
+            target: development # created with FROM ... as development
+            dockerfile: ./Dockerfile
+        command: npm run start:debug
+        environment:
+           - DB=books
+           - DB_HOST=mysql_container
+           - DB_PORT=3306
+           - DB_USER=root
+           - DB_PASSWORD=admin
+        ports:
+            - 3010:3010
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped      
+        depends_on:
+          - db         
+    db:
+        container_name: mysql_container
+        image: mysql:8
+        restart: always
+        environment:
+            MYSQL_DATABASE: 'books'
+            MYSQL_ROOT_PASSWORD: "admin"            
+        ports:
+            - 3306:3306
+        expose:
+            - '3306'
+        volumes:
+            - data:/var/lib/mysql  
+volumes:
+    data:
