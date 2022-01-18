@@ -58,7 +58,43 @@ services:
         volumes:
             - ./nest-microservices-books:/app
             - /app/node_modules
-        restart: unless-stopped       
+        restart: unless-stopped      
+    front_auth:
+        container_name: front-auth-service
+        build: ./microfrontend-auth
+        command: npm start        
+        ports:
+            - 3006:3006   
+        expose:
+            - '3006'                
+        volumes:
+            - ./microfrontend-auth:/app
+            - /app/node_modules
+        restart: unless-stopped 
+    front_books:
+        container_name: front-books-service
+        build: ./microfrontend-books
+        command: npm start        
+        ports:
+            - 3007:3007 
+        expose:
+            - '3007'                
+        volumes:
+            - ./microfrontend-books:/app
+            - /app/node_modules
+        restart: unless-stopped
+    front_container:
+        container_name: front-container-service
+        build: ./microfrontend-container
+        command: npm start        
+        ports:
+            - 3008:3008
+        expose:
+            - '3008'                
+        volumes:
+            - ./microfrontend-container:/app
+            - /app/node_modules
+        restart: unless-stopped   
     db:
         container_name: mysql_container
         image: mysql:5.7
