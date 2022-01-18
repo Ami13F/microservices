@@ -4,6 +4,7 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AUTH_HOST } from './config';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       name: 'AUTH_CLIENT',
       transport: Transport.TCP,
       options: {
-        host: 'localhost',
+        host: AUTH_HOST,
         port: 4000
       }
     }])

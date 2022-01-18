@@ -5,13 +5,14 @@ import { AuthService } from "./auth.service";
 import { LocalStrategy } from "./local.strategy";
 import { AuthController } from "./auth.controller";
 import constants from "./constants";
+import { USER_HOST } from "src/config";
 
 @Module({
   imports: [ClientsModule.register([{
     name: 'USER_CLIENT',
     transport: Transport.TCP,
     options: {
-      host: 'localhost',
+      host: USER_HOST,
       port: 4010,
     }
   }]), JwtModule.register({

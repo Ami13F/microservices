@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Transport } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
+import { USER_HOST } from './user/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {cors:true});
@@ -9,7 +10,7 @@ async function bootstrap() {
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
-      host: 'localhost',
+      host: USER_HOST,
       port: 4010
     }
   });

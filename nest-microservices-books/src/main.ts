@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
+import { BOOK_HOST } from './books/config';
 
 async function bootstrap() { 
   const app = await NestFactory.create(AppModule, {cors:true});
@@ -8,7 +9,7 @@ async function bootstrap() {
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
-      host: 'localhost',
+      host: BOOK_HOST,
       port: 4020
     }
   })

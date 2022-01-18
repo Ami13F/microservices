@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+    user:
+        container_name: user-service
+        build: ./nestjs-microservices-auth-user
+        command: npm run start
+        environment:
+           - DB=books
+           - DB_HOST=mysql_container
+           - DB_PORT=3306
+           - DB_USER=root
+           - DB_PASSWORD=admin
+           - USER_HOST=user
+           - AUTH_HOST=auth
+           - BOOK_HOST=book
+        ports:
+            - 3010:3010
+            - 4010:4010
+        expose:
+            - '4010'
+        volumes:
+            - ./nestjs-microservices-auth-user:/app
+            - /app/node_modules
+        restart: unless-stopped
+        depends_on:
+          - db
+    auth:
+        container_name: auth-service
+        build: ./nestjs-microservices-auth-auth
+        command: npm run start
+        environment:  
+            USER_HOST: user
+            AUTH_HOST: auth
+            BOOK_HOST: book
+        ports:
+            - 3000:3000
+            - 4000:4000
+        expose:
+            - '4000'
+        volumes:
+            - ./nestjs-microservices-auth-auth:/app
+            - /app/node_modules
+        restart: unless-stopped
+    book:
+        container_name: book-service
+        build: ./nest-microservices-books
+        command: npm run start
+        environment:  
+            USER_HOST: user
+            AUTH_HOST: auth
+            BOOK_HOST: book
+        ports:
+            - 3020:3020
+            - 4020:4020
+        expose:
+            - '4020'
+        volumes:
+            - ./nest-microservices-books:/app
+            - /app/node_modules
+        restart: unless-stopped       
+    db:
+        container_name: mysql_container
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_DATABASE: 'books'
+            MYSQL_ROOT_PASSWORD: "admin"            
+        ports:
+            - 3306:3306
+        expose:
+            - '3306'
+        cap_add:
+            - SYS_NICE
+        volumes:
+            - data:/var/lib/mysql  
+volumes:
+    data:
